@@ -202,7 +202,7 @@
         <td class="id">EXP-15</td>
         <td>Temperature scaling fixes the miscalibration</td>
         <td><span class="chip c-fail">Failed</span></td>
-        <td class="note">n=4,233. Model +0.090 overconfident; market bias +0.0006 — the market is calibrated where the model is not. The error is a shift, not a sharpness problem.</td>
+        <td class="note">n=1,361. Model +0.090 overconfident; market bias +0.0006 — the market is calibrated where the model is not. The error is a shift, not a sharpness problem. Scope, recorded after I first overstated it: its gate is the YES-side edge only and pre-start only, so it never covered the entry filter discussed below.</td>
       </tr>
       <tr>
         <td class="id">EXP-16</td>
@@ -344,13 +344,33 @@
       <p>It is not a midpoint artifact: the entry price equals the ask actually lifted on 194 of
       206 trades, median spread 1.0¢, zero midpoint matches. It is stable across three time folds,
       and a decay regression returns a slope indistinguishable from flat.</p>
-      <p>It also contradicts EXP-15 on 30× less data, its filter was tuned in ways nobody recorded,
-      and its profit rests on one week. So it is either the one real thing here or an ordinary
-      case of a filter tuned until it looked good.</p>
+      <p>Its filter was tuned in ways nobody recorded, and its profit rests on one week. So it is
+      either the one real thing here or an ordinary case of a filter tuned until it looked good.</p>
+      <p><strong>What it is probably not is model skill.</strong> Measured on this filter's own
+      population for the first time — n=1,685, tour, spread ≤10¢ — the model's log-loss is
+      <strong class="mono">0.7920</strong> against the market's <strong class="mono">0.6628</strong>.
+      It loses by 0.129, roughly 3× EXP-8's tour-wide gap. Its mean is well calibrated (+0.0023
+      bias); its <em>discrimination</em> is worse. Split by whether the bot actually entered, that
+      inverts:</p>
+    </div>
+    <div class="scroll" style="margin:16px 0 0">
+      <table style="min-width:460px">
+        <thead><tr><th>Subset</th><th class="num">n</th><th class="num">Model</th><th class="num">Market</th><th class="num">Difference</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Entered</strong></td><td class="num">146</td><td class="num pos">0.6891</td><td class="num">0.7269</td><td class="num pos">−0.038 · model wins</td></tr>
+          <tr><td>Not entered</td><td class="num">1,539</td><td class="num neg">0.8018</td><td class="num">0.6567</td><td class="num neg">+0.145 · model loses</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <p style="margin-top:15px">A 0.18 log-loss swing, with the market <em>also</em> unusually poor
+      on the entered subset. If something real is happening it is <strong>entry selection</strong>,
+      not the probability estimate.</p>
     </div>
     <dl class="kv">
       <dt>Status</dt><dd>Under forward test with O'Brien–Fleming boundaries at 100/200/300 clusters.</dd>
       <dt>Calibration</dt><dd>2.7% false-positive under the null; 80% power at the minimum effect worth acting on.</dd>
+      <dt>Caveat</dt><dd>Conditioning on entry is post-selection, n=146, and it is the same sample that generated the hypothesis. Descriptive, not a result.</dd>
     </dl>
   </div>
 </section>
