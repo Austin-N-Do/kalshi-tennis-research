@@ -82,8 +82,13 @@ Five hypotheses with criteria fixed in advance and no interim peeking.
 | [EXP-19](experiments/EXP-19-lab2-entry-edge.md) | Do the lab2 entries beat executable prices? | 6 / 300 |
 | [EXP-20](experiments/EXP-20-stop-and-shift-lab-arm.md) | Do stop-loss + model-shift destroy value? | 0 / 200 |
 | [EXP-21](experiments/EXP-21-capacity-arm.md) | Does raising the position cap add value? | 0 / 200 |
+| [EXP-22](experiments/EXP-22-entry-selection.md) | Is the edge in entry *selection*, not the model? | 0 / 225 |
 
-Three of those five specs state in advance that a **FAIL is the expected outcome**.
+Three of those six specs state in advance that a **FAIL is the expected outcome**.
+
+The newest, [EXP-22](experiments/EXP-22-entry-selection.md), came out of narrowing the
+anomaly below — see
+[reports/2026-09-03-where-the-edge-lives.md](reports/2026-09-03-where-the-edge-lives.md).
 
 ## The one open anomaly
 
