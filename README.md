@@ -16,11 +16,11 @@ Python 3.12 · FastAPI · PostgreSQL · Redis · XGBoost · Docker.
 
 A live scanner prices ATP/WTA/ITF matches, an Elo-plus-serve model and a Monte-Carlo
 match simulator produce a win probability, and the system compares it against the
-**executable quote** — the ask actually lifted, never a midpoint. Eight paper cohorts
+**executable quote** — the ask actually lifted, never a midpoint. Nine paper cohorts
 run concurrently, each differing from its neighbour by exactly one variable, so
 comparisons are live A/Bs rather than backtests.
 
-**1,435 settled paper trades** across Jul–Sep 2026. Aggregate **−$659.63**.
+**1,470 settled paper trades** across Jul–Sep 2026. Aggregate **−$659.63**.
 No capital deployed.
 
 ## The honest headline
@@ -77,9 +77,9 @@ Five hypotheses with criteria fixed in advance and no interim peeking.
 
 | ID | Question | Progress |
 |---|---|---|
-| [EXP-17](experiments/EXP-17-itf-exit-rules.md) | Do exit rules destroy value on ITF? | 59 / 400 |
-| [EXP-18](experiments/EXP-18-hold-only-lab-arm.md) | Does take-profit destroy value? | 30 / 200 |
-| [EXP-19](experiments/EXP-19-lab2-entry-edge.md) | Do the lab2 entries beat executable prices? | 6 / 300 |
+| [EXP-17](experiments/EXP-17-itf-exit-rules.md) | Do exit rules destroy value on ITF? | 105 / 400 |
+| [EXP-18](experiments/EXP-18-hold-only-lab-arm.md) | Does take-profit destroy value? | 32 / 200 |
+| [EXP-19](experiments/EXP-19-lab2-entry-edge.md) | Do the lab2 entries beat executable prices? | 26 / 300 |
 | [EXP-20](experiments/EXP-20-stop-and-shift-lab-arm.md) | Do stop-loss + model-shift destroy value? | 0 / 200 |
 | [EXP-21](experiments/EXP-21-capacity-arm.md) | Does raising the position cap add value? | 0 / 200 |
 | [EXP-22](experiments/EXP-22-entry-selection.md) | Is the edge in entry *selection*, not the model? | 0 / 225 |
@@ -136,10 +136,14 @@ null, 80% power at the minimum effect worth acting on. It reads in late November
 ```
 LEDGER.md      append-only index of every experiment and its status
 experiments/   preregistrations and results, one file per experiment
-method/        the research constitution, EV spec, execution realism, data contract
+method/        the research constitution, EV spec, execution realism,
+               data contract, and the weekly-check procedure
 proposals/     designed but deliberately not built, with the reasons
 reports/       session write-ups and the rendered HTML report
 ```
+
+Start with [reports/session-2026-09-03-complete-record.md](reports/session-2026-09-03-complete-record.md)
+for the fullest single account of how the current state was reached.
 
 ---
 
