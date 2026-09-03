@@ -135,8 +135,8 @@
   the data existed. Most of them failed.</p>
   <div class="meta">
     <span>Python 3.12 · FastAPI · PostgreSQL · Redis · XGBoost</span>
-    <span><b>1,435</b> settled paper trades</span>
-    <span><b>8</b> concurrent cohorts</span>
+    <span><b>1,438</b> settled paper trades</span>
+    <span><b>9</b> concurrent cohorts</span>
     <span>Jul – Sep 2026</span>
   </div>
 </header>
@@ -156,7 +156,7 @@
     <p>A live scanner prices ATP, WTA and ITF tennis matches on Kalshi, an order-driven prediction
     exchange. An Elo-plus-serve model and a Monte-Carlo match simulator produce a win probability;
     the system compares it against the <em>executable</em> quote — the ask actually lifted, never a
-    midpoint — and places paper trades through eight independent cohorts that differ by one
+    midpoint — and places paper trades through nine independent cohorts that differ by one
     variable each. Positions are managed by three exit rules (stop-loss, model-shift, take-profit)
     and graded automatically against Kalshi settlement.</p>
     <p>The cohort design is the point. Each pair differs in exactly one rule, so any comparison is
@@ -229,7 +229,7 @@
 
 <section>
   <h2>Cohort performance</h2>
-  <p class="lede">Eight paper books, $1,000 each, differing by one variable at a time.</p>
+  <p class="lede">Nine paper books, $1,000 each, differing by one variable at a time.</p>
 
   <figure class="chart">
     <svg viewBox="0 0 700 268" width="100%" role="img"
@@ -299,16 +299,17 @@
       <tr><td class="id">lab3</td><td>lab2 entries, take-profit only</td><td class="num">100</td><td class="num">50.0</td><td class="num pos">+$107.83</td><td class="num pos">+7.88%</td></tr>
       <tr><td class="id">lab2</td><td>Underdogs 25–50¢, ≥11¢ edge, full exit stack</td><td class="num">175</td><td class="num">37.1</td><td class="num pos">+$71.86</td><td class="num pos">+2.95%</td></tr>
       <tr><td class="id">chalk</td><td>Strong favourites only (≥75%)</td><td class="num">64</td><td class="num">59.4</td><td class="num pos">+$5.33</td><td class="num pos">+0.34%</td></tr>
-      <tr><td class="id">hold</td><td>Baseline entries, <em>no exits</em> (EXP-9 control)</td><td class="num">301</td><td class="num">60.1</td><td class="num pos">+$0.41</td><td class="num pos">+0.01%</td></tr>
-      <tr><td class="id">bot</td><td>Baseline</td><td class="num">435</td><td class="num">39.5</td><td class="num neg">−$269.13</td><td class="num neg">−3.40%</td></tr>
+      <tr><td class="id">hold</td><td>Baseline entries, <em>no exits</em> (EXP-9 control)</td><td class="num">302</td><td class="num">60.3</td><td class="num pos">+$3.56</td><td class="num pos">+0.06%</td></tr>
+      <tr><td class="id">bot</td><td>Baseline</td><td class="num">436</td><td class="num">39.7</td><td class="num neg">−$265.98</td><td class="num neg">−3.35%</td></tr>
       <tr><td class="id">lab</td><td>Sandbox, widest gates</td><td class="num">226</td><td class="num">53.1</td><td class="num neg">−$368.28</td><td class="num neg">−5.11%</td></tr>
-      <tr><td class="id">lab4</td><td>lab3 config, ITF-only</td><td class="num">103</td><td class="num">42.7</td><td class="num neg">−$108.91</td><td class="num neg">−7.76%</td></tr>
+      <tr><td class="id">lab4</td><td>lab3 config, ITF-only</td><td class="num">104</td><td class="num">43.3</td><td class="num neg">−$97.73</td><td class="num neg">−6.90%</td></tr>
       <tr><td class="id">lab5</td><td>lab2 entries, <em>no exits</em></td><td class="num">31</td><td class="num">29.0</td><td class="num neg">−$98.74</td><td class="num neg">−23.83%</td></tr>
+      <tr><td class="id">lab6</td><td>lab5 with raised caps (20 open / 35%)</td><td class="num">0</td><td class="num">–</td><td class="num">–</td><td class="num">just launched</td></tr>
     </tbody>
   </table>
   </div>
   <p class="note" style="margin-top:14px; max-width:var(--measure)">
-    Aggregate across 1,435 settled trades: <strong class="mono neg">−$659.63</strong>. Paper
+    Aggregate across 1,438 settled trades: <strong class="mono neg">−$642.15</strong>. Paper
     trading throughout. Both apparently profitable cohorts rest on a single week each — strip
     lab2's best week and it is −$33.
   </p>
@@ -364,8 +365,12 @@
     </div>
     <div class="col">
       <p style="margin-top:15px">A 0.18 log-loss swing, with the market <em>also</em> unusually poor
-      on the entered subset. If something real is happening it is <strong>entry selection</strong>,
-      not the probability estimate.</p>
+      on the entered subset. Two explanations were then eliminated: <strong>timing</strong> (taken
+      trades enter at +0.36¢ against the first qualifying price, identical on 60 of 144) and
+      <strong>the model</strong> (negative and insignificant in every fit). Controlling for both the
+      model probability and the market price, <code>ENTERED</code> still predicts winning at
+      <strong class="mono">+0.62, z=+3.40</strong> — so if something real is happening it is
+      <strong>entry selection</strong>, not the probability estimate. That is now EXP-22.</p>
     </div>
     <dl class="kv">
       <dt>Status</dt><dd>Under forward test with O'Brien–Fleming boundaries at 100/200/300 clusters.</dd>
@@ -377,20 +382,20 @@
 
 <section>
   <h2>Open, collecting</h2>
-  <p class="lede">Five hypotheses with criteria fixed before the data exists. No interim peeking.</p>
+  <p class="lede">Six hypotheses with criteria fixed before the data exists. No interim peeking.</p>
   <div class="prog">
     <div class="prow"><span class="id">EXP-17</span>
       <span class="lab"><b>ITF exit rules</b> — cohort as its own shadow control
-        <span class="bar" style="margin-top:7px"><i style="width:15%"></i></span></span>
-      <span class="cnt num">59 / 400</span></div>
+        <span class="bar" style="margin-top:7px"><i style="width:26%"></i></span></span>
+      <span class="cnt num">105 / 400</span></div>
     <div class="prow"><span class="id">EXP-18</span>
       <span class="lab"><b>Take-profit</b> — lab3 vs lab5, differs by one rule
-        <span class="bar" style="margin-top:7px"><i style="width:15%"></i></span></span>
-      <span class="cnt num">30 / 200</span></div>
+        <span class="bar" style="margin-top:7px"><i style="width:16%"></i></span></span>
+      <span class="cnt num">32 / 200</span></div>
     <div class="prow"><span class="id">EXP-19</span>
       <span class="lab"><b>Entry edge</b> — group-sequential, forward-only
-        <span class="bar" style="margin-top:7px"><i style="width:2%"></i></span></span>
-      <span class="cnt num">6 / 300</span></div>
+        <span class="bar" style="margin-top:7px"><i style="width:9%"></i></span></span>
+      <span class="cnt num">26 / 300</span></div>
     <div class="prow"><span class="id">EXP-20</span>
       <span class="lab"><b>Stop-loss + model-shift</b> — the larger leak, 5.2× take-profit's
         <span class="bar" style="margin-top:7px"><i style="width:1%"></i></span></span>
@@ -399,6 +404,10 @@
       <span class="lab"><b>Position capacity</b> — lab5 vs lab6, differs by cap alone
         <span class="bar" style="margin-top:7px"><i style="width:1%"></i></span></span>
       <span class="cnt num">0 / 200</span></div>
+    <div class="prow"><span class="id">EXP-22</span>
+      <span class="lab"><b>Entry selection</b> — is the edge the gates, not the model?
+        <span class="bar" style="margin-top:7px"><i style="width:1%"></i></span></span>
+      <span class="cnt num">0 / 225</span></div>
   </div>
   <p class="note" style="margin-top:14px; max-width:var(--measure)">
     Each spec states its expected outcome in advance. EXP-18, EXP-20 and EXP-21 all record that a
