@@ -40,10 +40,16 @@ data existed.
 | EXP-14 | Live in-play state adds information | **FAILED** |
 | EXP-10 | Which exit policy is best (four-arm replay) | **INCONCLUSIVE** |
 
-The most informative single result is **EXP-15**: on n=4,233 the model was
+The most informative single result is **EXP-15**: on n=1,361 the model was
 **+0.090 overconfident** while the market's bias was **+0.0006**. The market is
 calibrated where the model is not, and the error is a *shift*, not a sharpness
 problem — which is why temperature scaling made it strictly worse.
+
+One scope note, recorded because I originally got it wrong: **none of these nulls was
+measured on the narrow entry filter discussed below.** EXP-8, EXP-13, EXP-14 and
+EXP-16 are whole-population. EXP-15 is closest but still differs on three axes — it
+gates on the YES-side edge only, is pre-start only, and has no price band. They are
+not in direct contradiction with that filter; they simply never tested it.
 
 ## Why the nulls are the point
 
@@ -90,9 +96,31 @@ It survived the attacks that killed everything else. It is *not* a midpoint arti
 midpoint matches), it is stable across three time folds, and a decay regression
 returns a slope indistinguishable from flat.
 
-It also contradicts EXP-15 on 30× less data, the filter was tuned in ways nobody
-recorded, and its profit rests on a single week. So it is either the one real
-finding here or an ordinary case of a filter tuned until it looked good.
+The filter was tuned in ways nobody recorded, and its profit rests on a single
+week — so it is either the one real finding here or an ordinary case of a filter
+tuned until it looked good.
+
+**What it is probably not, though, is model skill.** Measured on this filter's own
+population for the first time (n=1,685, tour, spread ≤10¢): the model's log-loss is
+**0.7920 against the market's 0.6628** — it loses by 0.129, roughly 3× EXP-8's
+tour-wide gap. Its mean is well calibrated (+0.0023 bias); its *discrimination* is
+worse than the market's.
+
+Yet split by whether the bot actually entered:
+
+| Subset | n | Model | Market | Difference |
+|---|---|---|---|---|
+| **Entered** | 146 | **0.6891** | 0.7269 | **−0.038** — model wins |
+| Not entered | 1,539 | 0.8018 | 0.6567 | +0.145 — model loses |
+
+A 0.18 log-loss swing between the two, with the market *also* unusually poor on the
+entered subset. If anything real is happening it is **entry selection**, not the
+probability estimate. That is a different hypothesis from the one EXP-19 is written
+to test — EXP-19 measures realised edge against executable price and stays valid
+either way, but the mechanism it would confirm is not the model.
+
+Caveats that keep this descriptive: conditioning on entry is post-selection, n=146,
+and it is the same sample that generated the hypothesis.
 
 [EXP-19](experiments/EXP-19-lab2-entry-edge.md) tests it forward with
 O'Brien–Fleming boundaries at 100/200/300 clusters — 2.7% false-positive under the
