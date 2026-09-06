@@ -213,9 +213,10 @@ no exposure. Six live positions were exposed across `bot`, `bot_lab` and
 health and **no outcome metric for any open experiment**, so the check cannot
 become a peek. Guidance in [WEEKLY-CHECK.md](WEEKLY-CHECK.md).
 
-**A private research repo** — `Austin-N-Do/kalshi-tennis-research` — holding the
+**A research repo** — `Austin-N-Do/kalshi-tennis-research` — holding the
 ledger, every preregistration, the method rules, the proposals and the reports.
-Research record only; no trading code.
+Research record only; no trading code. (Private when this was written; made
+public on 2026-09-06.)
 
 ---
 

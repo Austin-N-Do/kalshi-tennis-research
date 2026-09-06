@@ -71,7 +71,7 @@ the Docker default, and parallel `VACUUM` failed against it with
 like a disk-full error and is not one. Work around it with:
 
 ```bash
-docker exec -e PGOPTIONS="-c max_parallel_maintenance_workers=0" kalshi_postgres   psql -U kalshi_user -d kalshi_tennis -c "VACUUM (ANALYZE) <table>;"
+docker exec -e PGOPTIONS="-c max_parallel_maintenance_workers=0" <postgres-container> psql -U <db-user> -d <database> -c "VACUUM (ANALYZE) <table>;"
 ```
 
 Parallel *queries* were never affected. The fix is in place, so the workaround above is
