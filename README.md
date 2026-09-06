@@ -9,6 +9,7 @@ reports. The trading system itself lives in a separate private repository.
 · **Full index:** [LEDGER.md](LEDGER.md)
 · **Monthly P&L:** [reports/monthly/](reports/monthly/)
 · **Trade log:** [data/trades.csv](data/)
+· **How the cohorts were built:** [reports/the-cohort-ladder.md](reports/the-cohort-ladder.md)
 
 ---
 
