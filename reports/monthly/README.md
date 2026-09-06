@@ -23,6 +23,10 @@ Three rules make these numbers mean something:
 | July 2026 | [2026-07.md](2026-07.md) |
 | August 2026 | [2026-08.md](2026-08.md) |
 
+Every position behind these totals is published row by row in
+[data/trades.csv](../../data/) -- outcomes and prices, without the model
+probability or edge that produced the decision.
+
 ## What each cohort is
 
 The point of running nine at once is that neighbours differ by exactly **one**
