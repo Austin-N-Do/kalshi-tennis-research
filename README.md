@@ -7,6 +7,7 @@ reports. The trading system itself lives in a separate private repository.
 
 **Rendered report:** [reports/research-log.html](reports/research-log.html)
 · **Full index:** [LEDGER.md](LEDGER.md)
+· **Monthly P&L:** [reports/monthly/](reports/monthly/)
 
 ---
 
