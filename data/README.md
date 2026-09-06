@@ -52,15 +52,20 @@ Every row's P&L is recomputable from the row:
 pnl_usd = contracts * (exit_price_c - entry_price_c) / 100 - fee_usd
 ```
 
-This reconciles to the cent on **1,543 of the 1,544** non-voided positions.
-Two documented exceptions:
+This reconciles to the cent on **every one of the 1,548** non-voided positions.
+
+One class is excluded by definition:
 
 - **24 voided positions** (`exit_reason = voided`) — a match cancelled or a
   walkover. These are refunded rather than settled on price, so a price formula
-  does not apply to them by definition.
-- **One row** (`KXWTAMATCH-26JUL29KUDSVI-SVI`, `bot_hold`) carries a fee that
-  was not netted into its stored P&L, unlike every other row. It is off by
-  $0.33. Left in place and named here rather than quietly corrected.
+  cannot describe them.
+
+An earlier version of this file documented one further exception: a single row
+whose exchange fee was populated but never subtracted from its stored P&L, off
+by $0.33. That was a real data error rather than a rounding artifact, found by
+running the check above *before* publishing the claim that it passes. It has
+since been corrected at source, and all 495 fee-bearing settled positions now
+net their fees consistently.
 
 `fee_usd` is **empty** on positions taken before fee attribution was added. Those
 rows' P&L does not model exchange costs at all, so they are slightly optimistic.
