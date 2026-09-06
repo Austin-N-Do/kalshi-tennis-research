@@ -11,6 +11,36 @@ reports. The trading system itself lives in a separate private repository.
 · **Trade log:** [data/trades.csv](data/)
 · **How the cohorts were built:** [reports/the-cohort-ladder.md](reports/the-cohort-ladder.md)
 
+![live cohorts](https://img.shields.io/badge/live_cohorts-9-1f6feb)
+![settled trades](https://img.shields.io/badge/settled_trades-1%2C572-1f6feb)
+![preregistered](https://img.shields.io/badge/preregistered_experiments-12-8957e6)
+![capital](https://img.shields.io/badge/capital_at_risk-%240-3fb950)
+
+> [!TIP]
+> **Short version, if you read nothing else.** Nine variants of one strategy run
+> side by side, each differing from its neighbour by exactly **one** rule — so the
+> gap between any two of them measures that rule and nothing else.
+>
+> The strongest arm is **`bot_lab3`, +8.31% over 108 settled positions**. It takes
+> `bot_lab2`'s entries and switches the stop-loss and model-shift exits **off**.
+> Removing rules beat adding them, which was not the expected answer.
+>
+> The programme overall is **−2.08%**. That is not a footnote — working out *which*
+> arms lose, and why, is the entire output.
+> **[How each arm was born →](reports/the-cohort-ladder.md)**
+
+| Best arms to date | Settled | Win rate | Return on cost |
+|---|---:|---:|---:|
+| **`bot_lab3`** — stop-loss and model-shift removed | 108 | 50.9% | **+8.31%** |
+| **`bot_lab2`** — the tuned entry filter | 183 | 38.3% | **+3.28%** |
+| `bot_chalk` — favourites only | 65 | 60.0% | +0.80% |
+| `bot_hold` — baseline entries, no exits | 329 | 60.8% | +0.33% |
+
+`bot_lab6` currently shows **+45.9%** — on **7 positions**. It sits down here rather
+than at the top of that table precisely because seven trades cannot support a claim,
+and a leaderboard with the sample sizes hidden is how records like this usually
+mislead.
+
 ---
 
 ## What this is
@@ -23,8 +53,8 @@ match simulator produce a win probability, and the system compares it against th
 run concurrently, each differing from its neighbour by exactly one variable, so
 comparisons are live A/Bs rather than backtests.
 
-**1,470 settled paper trades** across Jul–Sep 2026. Aggregate **−$659.63**.
-No capital deployed.
+**1,572 settled paper trades** across Jul–Sep 2026. Aggregate **−$642.24**
+on $30,939.73 deployed (**−2.08%**). No capital at risk — paper throughout.
 
 ## The honest headline
 
