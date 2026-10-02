@@ -22,6 +22,7 @@ Three rules make these numbers mean something:
 |---|---|
 | July 2026 | [2026-07.md](2026-07.md) |
 | August 2026 | [2026-08.md](2026-08.md) |
+| September 2026 | [2026-09.md](2026-09.md) |
 
 Every position behind these totals is published row by row in
 [data/trades.csv](../../data/) -- outcomes and prices, without the model
